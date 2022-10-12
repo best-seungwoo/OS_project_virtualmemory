@@ -19,7 +19,13 @@ main(int argc, char *argv[])
 
     // Get valid page count of child1 after allocating
     int child1_count = get_valid_page_count();
-    printf(1, "child1 count: %d\n", child1_count - parent_count);
+    printf(1, "Child1\n");
+    printf(1, "Output: %d\n", child1_count - parent_count);
+    printf(1, "Answer: 100\n");
+
+    // Asnwer check
+    if(child1_count - parent_count == 100) printf(1, "You are right!\n");
+    else printf(1, "You are wrong..\n");
 
     exit();
   }
@@ -36,7 +42,13 @@ main(int argc, char *argv[])
 
     // Get valid page count of child2 after allocating
     int child2_count = get_valid_page_count();
-    printf(1, "child2 count: %d\n", child2_count - parent_count);
+    printf(1, "Child2\n");
+    printf(1, "Output: %d\n", child2_count - parent_count);
+    printf(1, "Answer: 10000\n");
+
+    // Asnwer check 
+    if(child2_count - parent_count == 10000) printf(1, "You are right!\n");
+    else printf(1, "You are wrong..\n");
 
     exit();
   }
