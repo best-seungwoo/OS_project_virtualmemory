@@ -90,9 +90,9 @@ sys_uptime(void)
   return xticks;
 }
 
-// CSW: 'count_valid_page_count' is defined in the kernel code 'vm.c'
+// CSW: 'count_valid_page' is defined in the kernel code 'vm.c'
 int
 sys_get_valid_page_count(void)
 {
-  return count_valid_page_count();
+  return count_valid_page();
 }
