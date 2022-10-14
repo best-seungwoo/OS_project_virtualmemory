@@ -396,7 +396,7 @@ copyout(pde_t *pgdir, uint va, void *p, uint len)
 int
 count_valid_page(void)
 {
-  int count;
+  int count = 0;
   // Write your code here!
   return count;
 }
