@@ -21,17 +21,25 @@ typedef union header Header;
 static Header base;
 static Header *freep;
 
-// CSW: user function to free memory allocated in pointer p 
+// CSW: print free list status
 void
-ufree(void *p){
-  // Write your code here!
+print_free_list(){
+  Header* p;
+  printf(1, "Header -> ");
+  if(freep == 0){ 
+    printf(1, "NULL\n");
+    return;
+  }
+  for(p = base.s.ptr; p != &base; p = p->s.ptr){
+    printf(1, "%d -> ", p->s.size);
+  }
+  printf(1, "NULL\n");
 }
 
 void
 free(void *ap)
 {
   Header *bp, *p;
-
   bp = (Header*)ap - 1;
   for(p = freep; !(bp > p && bp < p->s.ptr); p = p->s.ptr)
     if(p >= p->s.ptr && (bp > p || bp < p->s.ptr))
@@ -71,7 +79,6 @@ malloc(uint nbytes)
 {
   Header *p, *prevp;
   uint nunits;
-
   nunits = (nbytes + sizeof(Header) - 1)/sizeof(Header) + 1;
   if((prevp = freep) == 0){
     base.s.ptr = freep = prevp = &base;
@@ -93,4 +100,13 @@ malloc(uint nbytes)
       if((p = morecore(nunits)) == 0)
         return 0;
   }
+}
+
+// CSW: modify malloc to implement 'best fit' strategy
+void*
+malloc_bf(uint nbytes)
+{
+  // Write your code here!
+  return 0; // <- (You need to change this line, too!)
+  //
 }

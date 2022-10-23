@@ -392,11 +392,13 @@ copyout(pde_t *pgdir, uint va, void *p, uint len)
 //PAGEBREAK!
 // Blank page.
 
-// CSW: kernel function that counts the number of valid pages
+// CSW: kernel function to count valid page count
 int
-count_valid_page(void)
+count_valid_page_count(void)
 {
   int count = 0;
   // Write your code here!
+  
+  //
   return count;
 }

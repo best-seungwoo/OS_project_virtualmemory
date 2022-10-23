@@ -23,7 +23,7 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
-int get_valid_page_count(void); // CSW: added a system call 'get_valid_page_count'
+int get_valid_page_count(void); // CSW: added system call
 
 // ulib.c
 int stat(const char*, struct stat*);
@@ -37,5 +37,6 @@ uint strlen(const char*);
 void* memset(void*, int, uint);
 void* malloc(uint);
 void free(void*);
-void ufree(void*); // CSW: added a user function 'ufree'
+void print_free_list(); // CSW: added user function
+void* malloc_bf(uint); // CSW: added user function
 int atoi(const char*);

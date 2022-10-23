@@ -6,64 +6,43 @@
 int
 main(int argc, char *argv[])
 {
-  // Get valid page count of parent
-  int parent_count = get_valid_page_count();
+  int* ptr_array[10];
+  int size_array[10] = {600, 5, 100, 5, 1300, 5, 300, 5, 800, 5};
+  int size_array2[5] = {200, 900, 300, 100, 700};
+  int size_array3[5] = {500, 200, 300, 200, 400};
+  int i;
 
-  // Child 1
-  if(fork() == 0) {
-    // Create variables on heap
-    int* heap_var_child1 = (int *)malloc(PGSIZE * 100 - 8);
-
-    // Just to avoid warning
-    heap_var_child1[0] = 0;
-
-    // Get valid page count of child1 after allocating
-    int child1_count = get_valid_page_count();
-    printf(1, "Child1\n");
-    printf(1, "Output: %d (after malloc)\n", child1_count - parent_count);
-
-    // Deallocate the heap memory
-    ufree(heap_var_child1);
-
-    // Get valid page count of child1 after freeing
-    int child1_count_free = get_valid_page_count();
-    printf(1, "Output: %d (after free)\n", child1_count_free - parent_count);
-    if(child1_count - child1_count_free == 100) printf(1, "You are right!\n");
-    else printf(1, "You are wrong..\n");
-
-    exit();
+  // Malloc ten times
+  printf(1, "----------------malloc 10 times-----------------\n");
+  for(i = 0; i < 10; i++){
+    ptr_array[i] = (int*)malloc(size_array[i] * 8 - 8);
+    //just to avoid warning
+    ptr_array[i][0] = 0;
   }
+  print_free_list();
 
-  // Child 2
-  else if(fork() == 0) {
-    sleep(5);
-
-    // Create variables on heap
-    int* heap_var_child2 = (int *)malloc(PGSIZE * 10000 - 8);
-
-    // Just to avoid warning
-    heap_var_child2[0] = 0;
-
-    // Get valid page count of child2 after allocating
-    int child2_count = get_valid_page_count();
-    printf(1, "Child2\n");
-    printf(1, "Output: %d (after malloc)\n", child2_count - parent_count);
-
-    // Deallocate the heap memory
-    ufree(heap_var_child2);
-
-    // Get valid page count of child2 after freeing
-    int child2_count_free = get_valid_page_count();
-    printf(1, "Output: %d (after free)\n", child2_count_free - parent_count);
-    if(child2_count - child2_count_free == 10000) printf(1, "You are right!\n");
-    else printf(1, "You are wrong..\n");
-
-    exit();
+  // Free five times
+  printf(1, "-----------------free 5 times-------------------\n");
+  for(i = 0; i < 5; i++){
+    free(ptr_array[2 * i]);
   }
-  // Parent: wait for children
-  else {
-    wait();
-    wait();
+  print_free_list();
+
+  // Show results when using first fit strategy (default)
+  printf(1, "------------------first fit---------------------\n");
+  for(i = 0; i < 5; i++){
+    printf(1, "malloc(%d)\n", size_array2[i])    ;
+    malloc(size_array2[i] * 8 - 8);
   }
+  print_free_list();
+
+  //init_freep();
+  printf(1, "-------------------best fit---------------------\n");
+  for(i = 0; i < 5; i++){
+    printf(1, "malloc_bf(%d)\n", size_array3[i])    ;
+    malloc_bf(size_array3[i] * 8 - 8);
+  }
+  print_free_list();
+
   exit();
 }
