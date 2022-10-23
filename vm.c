@@ -394,7 +394,7 @@ copyout(pde_t *pgdir, uint va, void *p, uint len)
 
 // CSW: kernel function to count valid page count
 int
-count_valid_page_count(void)
+count_valid_page(void)
 {
   int count = 0;
   // Write your code here!
@@ -402,3 +402,4 @@ count_valid_page_count(void)
   //
   return count;
 }
+
